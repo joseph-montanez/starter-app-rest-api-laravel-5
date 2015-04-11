@@ -2,14 +2,13 @@
 
 This is the rest API for the starter apps:
 
-
 - [Starter App for Native iOS - Swift](https://github.com/joseph-montanez/starter-app-native-ios)
 
 ## Install
 
-Everything Else
+You will need composer to start. To download composer you can go to [GetComposer.org](https://getcomposer.org/download/).
 
-	composer update
+	php composer.phar install
 	php artisan migrate
 
 ## Run
