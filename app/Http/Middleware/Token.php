@@ -9,19 +9,19 @@ class Token {
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, $next)
     {
 
-        $token = App::make('user\Contracts\Token', [
+        $token = \App::make('user\Contracts\Token', [
             'token' => $request->input('token', $request->header('X-Token'))
         ]);
 
         $user = $token->getUser();
 
         if (!$user) {
-            return $this->response->make('Unauthorized', 401);
+            return \Response::make(['success' => false,  'message' => 'Unauthorized'], 401);
         } else {
-            Auth::setUser($user);
+            \Auth::setUser($user);
         }
 
         return $next($request);

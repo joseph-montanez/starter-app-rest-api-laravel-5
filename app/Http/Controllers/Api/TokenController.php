@@ -10,12 +10,15 @@ class TokenController extends Controller
 	/**
 	 *
 	 */
-	public function authorized()
+	public function authorize($uuid = null)
 	{
 		$token = App::make('user\Contracts\Token');
+		if ($uuid === null) {
+			$uuid = Input::get('uuid');
+		}
 
 		$authorized = false;
-		if ($token->isAuthorize()) {
+		if ($token->isAuthorize() && $token->validateUUID($uuid)) {
 			$authorized = true;
 		}
 

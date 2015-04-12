@@ -21,17 +21,17 @@ Route::controllers([
 ]);
 
 //-- Unprotected API Routes
-Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function()
+Route::group(['middleware' => 'nice.errors', 'namespace' => 'Api', 'prefix' => 'api/v1'], function()
 {
-    Route::get('token/generate', 'TokenController@generate');
-    Route::get('token/authorized', 'TokenController@authorized');
+    Route::post('token/generate', 'TokenController@generate');
+    Route::get('token/authorize', 'TokenController@authorize');
 
     Route::post('user/register', 'UserController@register');
     Route::post('user/login', 'UserController@login');
 });
 
 //-- Protected API Routes
-Route::group(['middleware' => 'auth.token', 'namespace' => 'Api', 'prefix' => 'api/v1'], function()
+Route::group(['middleware' => ['nice.errors', 'auth.token'], 'namespace' => 'Api', 'prefix' => 'api/v1'], function()
 {
     Route::post('user', 'UserController@user');
     Route::post('user/forgot-password', 'UserController@forgotPassword');

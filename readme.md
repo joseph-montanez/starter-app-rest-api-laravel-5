@@ -9,6 +9,15 @@ This is the rest API for the starter apps:
 You will need composer to start. To download composer you can go to [GetComposer.org](https://getcomposer.org/download/).
 
 	php composer.phar install
+	
+Next you need to copy and edit the example env file
+
+	cp .env.example env
+	
+Don't forget to edit **APP_KEY** and **JWT_SECRET**
+
+After that you can run the migration
+
 	php artisan migrate
 
 ## Run

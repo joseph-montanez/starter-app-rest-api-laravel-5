@@ -138,6 +138,9 @@ class JsonWebToken {
 		return $this->valid;
 	}
 
+	public function validateUUID($uuid) {
+		return $this->uuid === $uuid;
+	}
 
 	public function __set($name, $value)
 	{

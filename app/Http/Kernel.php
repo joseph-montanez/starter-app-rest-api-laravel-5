@@ -29,6 +29,7 @@ class Kernel extends HttpKernel {
 		'auth.token' => 'App\Http\Middleware\Token',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
+		'nice.errors' => 'App\Http\Middleware\NiceApiErrors',
 	];
 
 }

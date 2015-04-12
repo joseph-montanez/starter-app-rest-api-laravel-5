@@ -1,7 +1,11 @@
 <?php namespace App\Exceptions;
 
 use Exception;
+use Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Handler extends ExceptionHandler {
 
@@ -36,7 +40,22 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
-		return parent::render($request, $e);
+		$accept = $request->header('Accept');
+		$is_json = stristr($accept, 'javascript') || stristr($accept, 'json');
+		if ($e->getMessage() === 'Not Authorized' && $is_json) {
+			return response()->json(array('error' => $e->getMessage()), [], $e->getCode());
+		    //return Response::json(array('error' => $e->getMessage()), $e->getCode());
+		} else if (
+			(
+				$e instanceOf MethodNotAllowedHttpException ||
+				$e instanceOf NotFoundHttpException
+			)
+			&& $is_json) {
+			//return response()->json(array('error' => $e->getMessage()), [], $e->getCode());
+		    return Response::json(array('error' => $e->getMessage()), $e->getCode());
+		} else {
+			return parent::render($request, $e);
+		}
 	}
 
 }
