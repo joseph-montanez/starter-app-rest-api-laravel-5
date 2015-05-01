@@ -100,8 +100,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public static function validateNewUser($data)
 	{
 		$requirements = [
-			'first_name' => 'required',
-			'last_name' => 'required',
+			// 'first_name' => 'required',
+			// 'last_name' => 'required',
 			'password' => 'required|confirmed|min:3',
 			'email' => 'required|email|unique:users'
 		];
